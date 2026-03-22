@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🎬 Movie Recommendation System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>🎬 Movie Recommendation System</h1>
+
+    <!-- Search Form -->
+    <form action="/recommend" method="get" class="search-form">
+        <label>Enter movie name:</label>
+        <input type="text" name="movie" required value="{{ movie if movie else '' }}">
+        <br><br>
+        <label>Minimum Rating:</label>
+        <input type="number" name="min_rating" step="0.1" value="{{ min_rating if min_rating else 7.5 }}" min="5" max="9.5">
+        <br><br>
+        <button type="submit">Recommend</button>
+    </form>
+
+    <hr>
+
+    <!-- Error Message -->
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <!-- Recommendations -->
+    {% if recommendations %}
+        <h2>Recommended Movies:</h2>
+        <div class="grid">
+            {% for rec in recommendations %}
+                <div class="card">
+                    <img src="{{ rec.poster }}" alt="{{ rec.title }}" class="poster">
+                    <h3>{{ rec.title }}</h3>
+                    <p>⭐ Rating: {{ rec.rating }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>

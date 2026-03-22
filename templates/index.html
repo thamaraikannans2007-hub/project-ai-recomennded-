@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🎬 Movie Recommendation System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>🎬 Movie Recommendation System</h1>
+    <form action="/recommend" method="get">
+        <label>Enter movie name:</label>
+        <input type="text" name="movie" required>
+        <br><br>
+        <label>Minimum Rating:</label>
+        <input type="number" name="min_rating" step="0.1" value="7.5" min="5" max="9.5">
+        <br><br>
+        <button type="submit">Recommend</button>
+    </form>
+</body>
+</html>
