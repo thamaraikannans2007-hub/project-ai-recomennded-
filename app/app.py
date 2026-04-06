@@ -4,20 +4,17 @@ from fastapi.templating import Jinja2Templates
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-
-app = FastAPI()
 from fastapi.staticfiles import StaticFiles
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+file_path = os.path.join(BASE_DIR, "data", "imdb_top_1000.csv")
 
 app = FastAPI()
 
-# Mount static folder
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
-
-# =========================
-# LOAD + PREPROCESS
-# =========================
-df = pd.read_csv(r"data/imdb_top_1000.csv")
+df = pd.read_csv(file_path)
 df = df.dropna().reset_index(drop=True)
 
 for col in ['Star1','Star2','Star3','Star4']:
@@ -34,9 +31,6 @@ similarity = cosine_similarity(matrix)
 
 df['Series_Title_lower'] = df['Series_Title'].str.lower()
 
-# =========================
-# ROUTES
-# =========================
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
