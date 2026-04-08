@@ -25,6 +25,8 @@ for col in ['Star1','Star2','Star3','Star4']:
     df[col] = df[col].str.replace(" ", "", regex=False)
     df[col] = df[col].str.replace(":", "", regex=False)
 
+
+
 # ------------------ COMBINE FEATURES ------------------
 df['combined'] = (
     df['Overview'] + " " + df['Genre'] + " " + df['Director'] + " " +
