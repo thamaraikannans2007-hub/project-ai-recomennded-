@@ -1,40 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>🎬 Movie Recommendation System</title>
-    <link rel="stylesheet" href="/static/style.css">
+<meta charset="UTF-8">
+<title>Recommender</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
-    <h1>🎬 Movie Recommendation System</h1>
 
-    <!-- Search Form -->
-    <form action="/recommend" method="get" class="search-form">
-        <label>Enter movie name:</label>
-        <input type="text" name="movie" required value="{{ movie if movie else '' }}">
-        <br><br>
-        <label>Minimum Rating:</label>
-        <input type="number" name="min_rating" step="0.1" value="{{ min_rating if min_rating else 7.5 }}" min="5" max="9.5">
-        <br><br>
-        <button type="submit">Recommend</button>
-    </form>
+<div class="navbar">
+     <div class="logo">🎬 Movie Recommend</div>
+   <div class="toggle-btn" onclick="toggleTheme()">
+    <span class="icon sun">☀️</span>
+    <span class="icon moon">🌙</span>
+    <div class="circle"></div>
+</div>
+</div>
 
-    <hr>
+<h1 class="title">Recommended Movies</h1>
 
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% endif %}
+{% if error %}
+    <h2 class="error">{{ error }}</h2>
+{% endif %}
 
-    {% if recommendations %}
-        <h2>Recommended Movies:</h2>
-        <div class="grid">
-            {% for rec in recommendations %}
-                <div class="card">
-                    <img src="{{ rec.poster }}" alt="{{ rec.title }}" class="poster">
-                    <h3>{{ rec.title }}</h3>
-                    <p>⭐ Rating: {{ rec.rating }}</p>
-                </div>
-            {% endfor %}
+<div class="grid">
+
+{% if recommendations %}
+    {% for rec in recommendations %}
+        <div class="movie-card">
+            <img src="{{ rec.poster }}">
+            <div class="movie-info">
+                <h3>{{ rec.title }}</h3>
+                <p>⭐ {{ rec.rating }}</p>
+            </div>
         </div>
-    {% endif %}
+    {% endfor %}
+{% endif %}
+
+</div>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("light");
+}
+</script>
+
 </body>
 </html>

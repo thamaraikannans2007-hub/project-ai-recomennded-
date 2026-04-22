@@ -1,19 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>🎬 Movie Recommendation System</title>
-    <link rel="stylesheet" href="/static/style.css">
+<meta charset="UTF-8">
+<title>🎬 Movie Recommendation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
-    <h1>🎬 Movie Recommendation System</h1>
-    <form action="/recommend" method="get">
-        <label>Enter movie name:</label>
-        <input type="text" name="movie" required>
-        <br><br>
-        <label>Minimum Rating:</label>
-        <input type="number" name="min_rating" step="0.1" value="7.5" min="5" max="9.5">
-        <br><br>
-        <button type="submit">Recommend</button>
-    </form>
+
+<div class="navbar">
+    <div class="logo">🎬 Movie Recommend</div>
+   <div class="toggle-btn" onclick="toggleTheme()">
+    <span class="icon sun">☀️</span>
+    <span class="icon moon">🌙</span>
+    <div class="circle"></div>
+</div>
+</div>
+
+<div class="container">
+    <h1>Find Your Next Movie</h1>
+
+    <div class="card">
+        <form onsubmit="showLoader()" action="/recommend" method="get">
+
+            <input type="text" name="movie" placeholder="Search movie..." list="suggestions" required>
+
+            <datalist id="suggestions">
+                <option value="Inception">
+                <option value="Interstellar">
+                <option value="The Dark Knight">
+                <option value="Titanic">
+                <option value="Avatar">
+            </datalist>
+
+            <input type="number" name="min_rating" step="0.1" value="7.5">
+
+            <button class="btn">Recommend</button>
+        </form>
+
+        <div class="spinner" id="spinner">
+            <div class="loader"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showLoader() {
+    document.getElementById("spinner").style.display = "block";
+    document.querySelector(".btn").disabled = true;
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("light");
+}
+</script>
 </body>
 </html>
